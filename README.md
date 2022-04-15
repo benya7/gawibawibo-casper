@@ -1,5 +1,10 @@
 # gawibawibo-casper
 
+```
+NOTE: The frontend part of the application is in progress and will be updated in the next few days.
+Also contract tests.
+Once this is complete a demo link hosted on github pages will be added.
+```
 
 ## Inspiration
 
@@ -32,7 +37,7 @@ You can also view your move history and cancel an unplayed move.
 ## How we built it
 
 The game is made up of a login system, you need a CASPER account to play.
-Then we have two main panels, the first is to create a new move and set up a desired prize.
+Then we have two main panels, the first is to create a new move .
 The second panel is the unplayed moves panel, here players can see their created moves or that of other players.
 If it's your own move, you get the option to cancel the move, otherwise you get the option to take the move.
 There appears another panel that allows you to choose your combination.
