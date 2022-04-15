@@ -18,8 +18,24 @@ use alloc::{
 use core::convert::TryInto;
 use casper_contract::{
     contract_api::{
-      runtime::{get_caller, get_key, get_named_arg, put_key, call_contract, revert, ret, blake2b}, 
-      storage::{dictionary_get, dictionary_put, read, new_contract, new_dictionary, new_uref},
+      runtime::{
+        get_caller, 
+        get_key, 
+        get_named_arg, 
+        put_key, 
+        call_contract, 
+        revert, 
+        ret, 
+        blake2b
+      }, 
+      storage::{
+        dictionary_get, 
+        dictionary_put, 
+        read, 
+        new_contract, 
+        new_dictionary, 
+        new_uref
+      },
     },
     unwrap_or_revert::UnwrapOrRevert,
 };
@@ -75,19 +91,16 @@ pub extern "C" fn new_move() {
 
 #[no_mangle]
 pub extern "C" fn moves_of() {
-    
+
   let account_hash: String = get_named_arg("account_hash");
   let dict_uref: URef = get_uref(STATE_CONTRACT_KEY);
-
   let moves = dictionary_get::<BTreeMap<u32, (String, Option<String>, String)>>(dict_uref, "moves_map")
         .unwrap_or_revert_with(ApiError::ValueNotFound)
         .unwrap_or_revert_with(ApiError::MissingKey);
-        
   let moves_user: Vec<(String, Option<String>, String)> = moves.values()
         .cloned()
         .filter(|m| m.0 == account_hash)
         .collect();
-
   ret(CLValue::from_t(moves_user).unwrap_or_revert());
 }
 
@@ -96,11 +109,9 @@ pub extern "C" fn cancel_move() {
     
   let id: u32 = get_named_arg("id");
   let dict_uref: URef = get_uref(STATE_CONTRACT_KEY);
-
   let mut moves = dictionary_get::<BTreeMap<u32, (String, Option<String>, String)>>(dict_uref, "moves_map")
         .unwrap_or_revert_with(ApiError::ValueNotFound)
         .unwrap_or_revert_with(ApiError::MissingKey);
-
   let target_move: (String, Option<String>, String) = moves.get(&id).unwrap_or_revert_with(ApiError::ValueNotFound).clone();
   let owner: String = get_caller().to_string();
   if target_move.0 != owner {
@@ -117,9 +128,7 @@ pub extern "C" fn cancel_move() {
 #[no_mangle]
 pub extern "C" fn get_unplayed_moves() {
   let dict_uref: URef = get_uref(STATE_CONTRACT_KEY);
-
   let result = all_unplayed_moves(dict_uref);
-  
   ret(CLValue::from_t(result).unwrap_or_revert());
 
 }
@@ -130,19 +139,15 @@ pub extern "C" fn play_move() {
   let adversary_hash: AccountHash = get_caller();
   let target_move_id: u32 = get_named_arg("target_move_id");
   let adversary_move_blend: String = get_named_arg("adversary_move_blend");
-
-  
   let dict_uref: URef = get_uref(STATE_CONTRACT_KEY);
   let mut moves = dictionary_get::<BTreeMap<u32, (String, Option<String>, String)>>(dict_uref, "moves_map") 
         .unwrap_or_revert_with(ApiError::ValueNotFound)
         .unwrap_or_revert_with(ApiError::MissingKey);
-        
   let target_move = moves.get(&target_move_id).unwrap_or_revert_with(ApiError::ValueNotFound);
   let mut winner: Option<String> = None;
   if target_move.1.is_some() {
     revert(ApiError::InvalidArgument)
   }
-  
   let mut counter_game = [0, 0];
   let blend_owner = get_blends_numbers(target_move.0.clone(), target_move.2.clone());
   let blend_adversary = get_blends_numbers(adversary_hash.to_string(), adversary_move_blend);
@@ -150,7 +155,6 @@ pub extern "C" fn play_move() {
   for (i, val) in blend_owner.iter().enumerate() {
             let option_owner = val.clone();
             let option_adversary = blend_adversary[i].clone();
-
             let game = [option_owner, option_adversary];
 
             match game {
@@ -190,7 +194,6 @@ pub extern "C" fn constructor() {
   let state_contract_uref = new_dictionary("state_contract").unwrap_or_revert();
   let sender_uref = new_uref(sender.to_string());
   let contract_hash_uref = new_uref(contract_hash);
-
   let moves_map = BTreeMap::<u32, (String, Option<String>, String)>::new();
   put_key("owner", sender_uref.into());
   put_key("contract_hash", contract_hash_uref.into());
@@ -222,7 +225,6 @@ pub extern "C" fn constructor() {
 //   put_key("unplayed_moves_test", result_get_unplayed_moves_uref.into());
 
 // }
-
 
 #[no_mangle]
 pub extern "C" fn call() {
@@ -278,7 +280,6 @@ pub extern "C" fn call() {
         None,
         None,
     );
-
     put_key("gawibawibo_11", contract_hash.into());
     let mut args = RuntimeArgs::new();
     args.insert("contract_hash".to_string(), contract_hash.to_formatted_string()).unwrap_or_revert();
@@ -353,7 +354,6 @@ fn get_blends_numbers (public_key: String, hash_blend: String) -> Vec<u64> {
     let mut path = Vec::new();
     path.append(&mut option.to_bytes().unwrap_or_revert());
     path.append(&mut public_key.to_bytes().unwrap_or_revert());
-
     let key_bytes = blake2b(&path);
     hex::encode(key_bytes)
   })
