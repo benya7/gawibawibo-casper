@@ -18,13 +18,13 @@ const ConnectBox = ({ size, activePublicKey, isLogged, explorerUrl }) => {
     {isLogged ?
       (
         <Button label={'disconnect'} size='small' onClick={() => {
-          Signer.disconnectFromSite();
+          window.casperlabsHelper.disconnectFromSite();
           window.location.reload();
         }} />
       ) :
       (
         <Button label={'connect'} size='small' onClick={() => {
-          Signer.sendConnectionRequest()
+          window.casperlabsHelper.sendConnectionRequest()
         }} />
       )
     }
