@@ -188,7 +188,7 @@ function App() {
 
 
   const filterCurrentAccountMoves = useCallback(async () => {
-    if (currentAccountMoves) {
+    if (appState.currentAccountMoves) {
 
       let moves = await getMoves();
       appState.currentAccountMoves = moves.filter(move => move.status !== 'unplayed' && move.ownerAccountHash == accountHash || move.adversaryAccountHash == accountHash);
@@ -196,7 +196,7 @@ function App() {
     }, [getMoves]);
 
   const filterUnplayedMoves = useCallback(async () => {
-    if (unplayedMoves) {
+    if (appState.unplayedMoves) {
 
       let moves = await getMoves();
       appState.unplayedMoves = moves.filter(move => move.status == 'unplayed')
