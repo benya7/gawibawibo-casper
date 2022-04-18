@@ -351,9 +351,9 @@ export const Options = ({ blends, setBlends, isLogged }) => {
     <RadioButtonGroup
       name='blend1'
       options={[
-        { label: <Avatar src={'/rock-icon-grey.png'} size='small' />, value: optionsValues[0] },
-        { label: <Avatar src={'/paper-icon-grey.png'} size='small' />, value: optionsValues[1] },
-        { label: <Avatar src={'/scissors-icon-grey.png'} size='small' />, value: optionsValues[2] },
+        { label: <Avatar src={'gawibawibo-casper/rock-icon-grey.png'} size='small' />, value: optionsValues[0] },
+        { label: <Avatar src={'gawibawibo-casper/paper-icon-grey.png'} size='small' />, value: optionsValues[1] },
+        { label: <Avatar src={'gawibawibo-casper/scissors-icon-grey.png'} size='small' />, value: optionsValues[2] },
       ]}
       value={blends.b1}
       onChange={(e) => setBlends({ ...blends, b1: e.target.value })}
@@ -363,9 +363,9 @@ export const Options = ({ blends, setBlends, isLogged }) => {
     <RadioButtonGroup
       name='blend2'
       options={[
-        { label: <Avatar src={'/rock-icon-grey.png'} size='small' />, value: optionsValues[0] },
-        { label: <Avatar src={'/paper-icon-grey.png'} size='small' />, value: optionsValues[1] },
-        { label: <Avatar src={'/scissors-icon-grey.png'} size='small' />, value: optionsValues[2] },
+        { label: <Avatar src={'gawibawibo-casper/rock-icon-grey.png'} size='small' />, value: optionsValues[0] },
+        { label: <Avatar src={'gawibawibo-casper/paper-icon-grey.png'} size='small' />, value: optionsValues[1] },
+        { label: <Avatar src={'gawibawibo-casper/scissors-icon-grey.png'} size='small' />, value: optionsValues[2] },
       ]}
       value={blends.b2}
       onChange={(e) => setBlends({ ...blends, b2: e.target.value })}
@@ -375,9 +375,9 @@ export const Options = ({ blends, setBlends, isLogged }) => {
     <RadioButtonGroup
       name='blend3'
       options={[
-        { label: <Avatar src={'/rock-icon-grey.png'} size='small' />, value: optionsValues[0] },
-        { label: <Avatar src={'/paper-icon-grey.png'} size='small' />, value: optionsValues[1] },
-        { label: <Avatar src={'/scissors-icon-grey.png'} size='small' />, value: optionsValues[2] },
+        { label: <Avatar src={'gawibawibo-casper/rock-icon-grey.png'} size='small' />, value: optionsValues[0] },
+        { label: <Avatar src={'gawibawibo-casper/paper-icon-grey.png'} size='small' />, value: optionsValues[1] },
+        { label: <Avatar src={'gawibawibo-casper/scissors-icon-grey.png'} size='small' />, value: optionsValues[2] },
       ]}
       value={blends.b3}
       onChange={(e) => setBlends({ ...blends, b3: e.target.value })}
