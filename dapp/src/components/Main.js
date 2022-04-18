@@ -11,6 +11,7 @@ import { sha3_256 } from 'js-sha3';
 import { toBytesString, toHexString } from '../utils';
 import { useCasper } from '../App';
 
+console.log(typeof process.env.REACT_APP_VALUES_OPTION1)
 const optionsValues = [
   process.env.REACT_APP_VALUES_OPTION1,
   process.env.REACT_APP_VALUES_OPTION2,

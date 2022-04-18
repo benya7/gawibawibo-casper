@@ -1,4 +1,4 @@
-import { Anchor, Box, Button, Header, Layer, ResponsiveContext, Text, Select } from 'grommet';
+import { Anchor, Box, Button, Header, Layer, ResponsiveContext, Text, Select, Paragraph } from 'grommet';
 import { Apps, Close } from 'grommet-icons';
 import React, { useContext, useState } from 'react';
 import { useSnapshot } from 'valtio';
@@ -11,8 +11,8 @@ const ConnectBox = ({ size, activePublicKey, isLogged, explorerUrl }) => {
     {isLogged &&
       <Anchor
         target='_blank'
-      href={`${explorerUrl}/account/${activePublicKey}`}
-      label={activePublicKey && `${activePublicKey.substring(0, 6)}...${activePublicKey.substring(activePublicKey.length - 6)}`}
+        href={`${explorerUrl}/account/${activePublicKey}`}
+        label={activePublicKey && `${activePublicKey.substring(0, 6)}...${activePublicKey.substring(activePublicKey.length - 6)}`}
         size='small'
       />}
     {isLogged ?
@@ -24,7 +24,7 @@ const ConnectBox = ({ size, activePublicKey, isLogged, explorerUrl }) => {
       ) :
       (
         <Button label={'connect'} size='small' onClick={() => {
-          window.casperlabsHelper.sendConnectionRequest()
+          window.casperlabsHelper.requestConnection()
         }} />
       )
     }
@@ -48,7 +48,7 @@ const ResponsiveMenu = ({ toggleHistory, size }) => {
           onClickOutside={toggleMenu}
           onEsc={toggleMenu}
         >
-          <Box gap='xlarge' background='c1' align='center' pad={{top: 'xlarge'}} justify='start' flex>
+          <Box gap='xlarge' background='c1' align='center' pad={{ top: 'xlarge' }} justify='start' flex>
             <Close onClick={toggleMenu} size='small' />
             <Button
               disabled={isLogged ? false : true}
@@ -91,11 +91,51 @@ const ResponsiveMenu = ({ toggleHistory, size }) => {
   </>
 }
 
+const Faq = () => {
+
+  return <Box align='center' pad='small' overflow={{ vertical: 'scroll'}}>
+    <Text weight='bold' size='large'>Faq</Text>
+    <Box gap='small'>
+      <Text size='small'>How work it the game?</Text>
+      <Box border flex overflow={{vertical: 'scroll'}} pad='small'>
+        <Text size='small'>
+          The game is the famous rock, paper, scissors (gawi, bawi, bo).
+          It works in the following way.
+          Each "move" consists of a combination of 3 rock, paper, scissors options (gawi, bawi, bo).
+          Rock (gawi), beats Scissors (bo) and loses to Paper (bawi).
+          Paper (bawi), beat Rock (gawi) and lose to Scissors (bo).
+          Scissors (bo), beats Paper (bawi) and loses to Rock (gawi).
+        </Text>
+      </Box>
+      <Text size='small'>How to Play?</Text>
+      <Box border flex overflow={{vertical: 'scroll'}} pad='small'>
+        <Text size='small'>
+          There are two ways to play, the first is to create a new "move" and the second is to play an existing "move".
+          To create a new one, in the left panel, select your combination of 3 options and then press the Submit button.
+          In the panel on the right, the unplayed "moves" will appear, yours and those of the rest of the players.
+          Your own moves give you the option to cancel, unlike other players' moves the Play button. You press that button and choose your combination of 3 options, then the Submit button.
+        </Text>
+      </Box>
+      {/* <Text size='small'>How to Play?</Text>
+      <Box border flex overflow={{vertical: 'scroll'}} pad='small'>
+        <Text size='small'>
+          There are two ways to play, the first is to create a new "move" and the second is to play an existing "move".
+          To create a new one, in the left panel, select your combination of 3 options and then press the Submit button.
+          In the panel on the right, the unplayed "moves" will appear, yours and those of the rest of the players.
+          Your own moves give you the option to cancel, unlike other players' moves the Play button. You press that button and choose your combination of 3 options, then the Submit button.
+        </Text>
+      </Box> */}
+    </Box>
+  </Box>
+}
+
 
 const Nav = () => {
   const size = useContext(ResponsiveContext);
   const { activePublicKey, isLogged, explorerUrl, themeMode, env } = useSnapshot(appState);
-  const [openHistory, setOpenHistory] = React.useState(false);
+  const [openHistory, setOpenHistory] = useState(false);
+  const [openFaq, setOpenFaq] = useState(false);
+  const toggleFaq = () => setOpenFaq((value) => !value);
   const toggleHistory = () => setOpenHistory((value) => !value);
 
   return <Header
@@ -140,13 +180,29 @@ const Nav = () => {
         )
       }
       {
+        openFaq && (
+          <Layer position='center'  onClickOutside={toggleFaq} onEsc={toggleFaq}>
+            <Box align='center' pad='medium' gap='small'>
+              <Close onClick={toggleFaq} size='small' />
+              <Faq />
+            </Box>
+          </Layer>
+        )
+      }
+      {
         size === 'small' ? (
           <ResponsiveMenu toggleHistory={toggleHistory} size={size} />
         ) : (
           <Box gap={size !== 'large' ? 'small' : 'medium'} direction='row' align='center'>
             <Button
+              label='faq'
+              size='small'
+              onClick={toggleFaq}
+              margin={{ horizontal: size === 'medium' ? 'small' : 'medium' }}
+            />
+            <Button
               disabled={isLogged ? false : true}
-                label='my moves history'
+              label='my moves history'
               size='small'
               onClick={toggleHistory}
               margin={{ horizontal: size === 'medium' ? 'small' : 'medium' }}

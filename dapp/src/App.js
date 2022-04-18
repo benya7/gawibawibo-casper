@@ -188,19 +188,13 @@ function App() {
 
 
   const filterCurrentAccountMoves = useCallback(async () => {
-    if (appState.currentAccountMoves) {
-
-      let moves = await getMoves();
-      appState.currentAccountMoves = moves.filter(move => move.status !== 'unplayed' && move.ownerAccountHash == accountHash || move.adversaryAccountHash == accountHash);
-    }
-    }, [getMoves]);
+    let moves = await getMoves();
+    appState.currentAccountMoves = moves.filter(move => move.status !== 'unplayed' && move.ownerAccountHash == accountHash || move.adversaryAccountHash == accountHash);
+  }, [getMoves]);
 
   const filterUnplayedMoves = useCallback(async () => {
-    if (appState.unplayedMoves) {
-
-      let moves = await getMoves();
-      appState.unplayedMoves = moves.filter(move => move.status == 'unplayed')
-    }
+    let moves = await getMoves();
+    appState.unplayedMoves = moves.filter(move => move.status == 'unplayed')
   }, [getMoves]);
 
   const filterMoveForId = async (id) => {
