@@ -20,7 +20,6 @@ export const Play = ({
   clientRpc, 
   checkStatusDeploy, 
   checkResultDeploy,
-  wallet,
   hidePlay
 }) => {
   const [blends, setBlends] = useState({ b1: "", b2: "", b3: "" });
@@ -54,7 +53,7 @@ export const Play = ({
       );
       const deployJson = DeployUtil.deployToJson(deployUnsigned);
       hidePlay();
-      let signedDeployJSON = await wallet.sign(deployJson, activePublicKey, activePublicKey);
+      let signedDeployJSON = await window.casperLabsHelper.sign(deployJson, activePublicKey, activePublicKey);
       let signedDeploy = DeployUtil.deployFromJson(signedDeployJSON).unwrap();
       showTransaction();
       let resultDeploy = await clientRpc.deploy(signedDeploy);
