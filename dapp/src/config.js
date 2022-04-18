@@ -8,7 +8,7 @@ function getConfig(env) {
     case 'mainnet':
       return {
         networkId: 'casper',
-        nodeUrl: 'http://65.21.235.219:7777/rpc',
+        nodeUrl: 'https://65.21.235.219:7777/rpc',
         contractPackageHash: CONTRACT_HASH_MAINNET,
         movesSeedUref: MOVES_SEED_UREF,
         walletUrl: 'https://cspr.live',
@@ -18,7 +18,7 @@ function getConfig(env) {
     case 'testnet':
       return {
         networkId: 'casper-test',
-        nodeUrl: 'http://65.21.235.219:7777/rpc',
+        nodeUrl: 'https://65.21.235.219:7777/rpc',
         contractPackageHash: CONTRACT_HASH_TESTNET,
         movesSeedUref: MOVES_SEED_UREF,
         walletUrl: 'https://testnet.cspr.live',

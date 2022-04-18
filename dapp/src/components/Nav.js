@@ -6,7 +6,7 @@ import { appState } from '../App';
 import { History } from './History';
 
 
-const ConnectBox = ({ size, activePublicKey, wallet, isLogged, explorerUrl, casperSignerInstalled }) => {
+const ConnectBox = ({ size, activePublicKey, wallet, isLogged, explorerUrl }) => {
   return <Box direction={size !== 'large' ? 'column' : 'row'} align='center' justify='center' gap='small'>
     {isLogged &&
       <Anchor
@@ -23,7 +23,7 @@ const ConnectBox = ({ size, activePublicKey, wallet, isLogged, explorerUrl, casp
         }} />
       ) :
       (
-        <Button label={'connect'} size='small' disabled={!casperSignerInstalled} onClick={() => {
+        <Button label={'connect'} size='small' onClick={() => {
           wallet.sendConnectionRequest()
         }} />
       )
@@ -63,7 +63,6 @@ const ResponsiveMenu = ({ toggleHistory, size }) => {
               wallet={wallet}
               isLogged={isLogged}
               explorerUrl={explorerUrl}
-              casperSignerInstalled={casperSignerInstalled}
             />
             <Select
               id="select"
@@ -159,7 +158,6 @@ const Nav = () => {
               wallet={wallet}
               isLogged={isLogged}
               explorerUrl={explorerUrl}
-                casperSignerInstalled={casperSignerInstalled}
             />
             <Select
               id="select"

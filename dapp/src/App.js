@@ -35,9 +35,8 @@ export const CasperContext = createContext(undefined);
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [hash, setHash] = useState({ exists: false, url: '' });
 
-  const { themeMode, isLogged, activePublicKey, nodeUrl, movesSeedUref, accountHash, lastDeployHash, casperSignerInstalled } = useSnapshot(appState);
+  const { themeMode, isLogged, activePublicKey, nodeUrl, movesSeedUref, accountHash } = useSnapshot(appState);
   const clientRpc = new CasperServiceByJsonRPC(nodeUrl);
 
   useEffect(() => {
@@ -214,7 +213,7 @@ function App() {
                 (
                   <Box align='center' pad={{ top: 'xlarge' }} margin={{ top: 'xlarge' }}>
                     <Spinner animation={{ type: 'rotateRight', duration: 4000 }} size='xlarge'>
-                      <Image src='gawibawibo-casper/loading.png' />
+                      <Image src='/gawibawibo-casper/loading.png' />
                     </Spinner>
                   </Box>
                 )
