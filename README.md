@@ -1,9 +1,7 @@
 # gawibawibo-casper
 
 ```
-NOTE: The frontend part of the application is in progress and will be updated in the next few days.
-Also contract tests.
-Once this is complete a demo link hosted on github pages will be added.
+NOTE: contract tests is in progress and will be updated in the next few days.
 ```
 
 ## Inspiration
