@@ -1,10 +1,10 @@
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-app_game/node_modules
-gawibawibo_contracts/contract/target
-gawibawibo_contracts/dev
-app_game/build
+dapp/node_modules
+contracts/contract/target
+contracts/dev
+dapp/build
 
 # misc
 .DS_Store
