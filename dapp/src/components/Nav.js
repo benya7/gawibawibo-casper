@@ -4,9 +4,9 @@ import React, { useContext, useState } from 'react';
 import { useSnapshot } from 'valtio';
 import { appState } from '../App';
 import { History } from './History';
+import { Signer } from 'casper-js-sdk';
 
-
-const ConnectBox = ({ size, activePublicKey, wallet, isLogged, explorerUrl }) => {
+const ConnectBox = ({ size, activePublicKey, isLogged, explorerUrl }) => {
   return <Box direction={size !== 'large' ? 'column' : 'row'} align='center' justify='center' gap='small'>
     {isLogged &&
       <Anchor
@@ -18,13 +18,13 @@ const ConnectBox = ({ size, activePublicKey, wallet, isLogged, explorerUrl }) =>
     {isLogged ?
       (
         <Button label={'disconnect'} size='small' onClick={() => {
-          wallet.disconnectFromSite();
+          Signer.disconnectFromSite();
           window.location.reload();
         }} />
       ) :
       (
         <Button label={'connect'} size='small' onClick={() => {
-          wallet.sendConnectionRequest()
+          Signer.sendConnectionRequest()
         }} />
       )
     }
@@ -32,7 +32,7 @@ const ConnectBox = ({ size, activePublicKey, wallet, isLogged, explorerUrl }) =>
 }
 
 const ResponsiveMenu = ({ toggleHistory, size }) => {
-  const { activePublicKey, wallet, isLogged, explorerUrl, themeMode, casperSignerInstalled } = useSnapshot(appState);
+  const { activePublicKey, isLogged, explorerUrl, themeMode, casperSignerInstalled } = useSnapshot(appState);
   const [openMenu, setOpenMenu] = useState(false);
 
   const toggleMenu = () => setOpenMenu((value) => !value);
@@ -60,7 +60,6 @@ const ResponsiveMenu = ({ toggleHistory, size }) => {
             <ConnectBox
               size={size}
               activePublicKey={activePublicKey}
-              wallet={wallet}
               isLogged={isLogged}
               explorerUrl={explorerUrl}
             />
@@ -95,7 +94,7 @@ const ResponsiveMenu = ({ toggleHistory, size }) => {
 
 const Nav = () => {
   const size = useContext(ResponsiveContext);
-  const { wallet, activePublicKey, isLogged, explorerUrl, themeMode, env, casperSignerInstalled } = useSnapshot(appState);
+  const { activePublicKey, isLogged, explorerUrl, themeMode, env } = useSnapshot(appState);
   const [openHistory, setOpenHistory] = React.useState(false);
   const toggleHistory = () => setOpenHistory((value) => !value);
 
@@ -154,8 +153,7 @@ const Nav = () => {
             />
             <ConnectBox
               size={size}
-                activePublicKey={activePublicKey}
-              wallet={wallet}
+              activePublicKey={activePublicKey}
               isLogged={isLogged}
               explorerUrl={explorerUrl}
             />

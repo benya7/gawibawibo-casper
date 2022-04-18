@@ -4,7 +4,7 @@ import React, { useCallback, useContext, useState, useEffect } from 'react';
 import { Play } from './Play';
 import { useSnapshot } from 'valtio';
 import { appState } from '../App';
-import { CLPublicKey, decodeBase16, DeployUtil, RuntimeArgs, CLU32, CLString, CasperServiceByJsonRPC, CLValueParsers } from 'casper-js-sdk';
+import { CLPublicKey, decodeBase16, DeployUtil, RuntimeArgs, CLU32, CLString, Signer } from 'casper-js-sdk';
 import { concat } from '@ethersproject/bytes';
 import blake from 'blakejs';
 import { sha3_256 } from 'js-sha3';
@@ -32,7 +32,6 @@ const Main = () => {
     contractHash,
     accountHash,
     env,
-    wallet,
     explorerUrl,
     executionResults,
     lastDeployHash,
@@ -84,7 +83,7 @@ const Main = () => {
         DeployUtil.standardPayment(5000000000)
       );
       const deployJson = DeployUtil.deployToJson(deployUnsigned);
-      let signedDeployJSON = await wallet.sign(deployJson, activePublicKey, activePublicKey);
+      let signedDeployJSON = await Signer.sign(deployJson, activePublicKey, activePublicKey);
       let signedDeploy = DeployUtil.deployFromJson(signedDeployJSON).unwrap();
       showTransaction();
       let resultDeploy = await clientRpc.deploy(signedDeploy);
@@ -127,7 +126,7 @@ const Main = () => {
         DeployUtil.standardPayment(7000000000)
       );
       const deployJson = DeployUtil.deployToJson(deployUnsigned);
-      let signedDeployJSON = await wallet.sign(deployJson, activePublicKey, activePublicKey);
+      let signedDeployJSON = await Signer.sign(deployJson, activePublicKey, activePublicKey);
       let signedDeploy = DeployUtil.deployFromJson(signedDeployJSON).unwrap();
       showTransaction();
       let resultDeploy = await clientRpc.deploy(signedDeploy);
@@ -278,7 +277,6 @@ const Main = () => {
               clientRpc={clientRpc}
               checkStatusDeploy={checkStatusDeploy}
               checkResultDeploy={checkResultDeploy}
-              wallet={wallet}
               hidePlay={hidePlay}
             />
           </Box>

@@ -9,7 +9,7 @@ import Main from './components/Main';
 import FooterApp from './components/FooterApp';
 import { proxy } from 'valtio';
 import getConfig from './config';
-import { Signer, CLPublicKey, CasperServiceByJsonRPC, base64to16 } from 'casper-js-sdk';
+import { CLPublicKey, CasperServiceByJsonRPC } from 'casper-js-sdk';
 import { sleepTime } from './utils'
 
 
@@ -45,7 +45,6 @@ function App() {
     appState.themeMode = localStorage.getItem('theme') || 'light'
     appState.env = config.networkId;
     appState.explorerUrl = config.explorerUrl;
-    appState.wallet = Signer;
     appState.contractHash = config.contractPackageHash;
     appState.nodeUrl = config.nodeUrl;
     appState.movesSeedUref = config.movesSeedUref;
@@ -189,13 +188,19 @@ function App() {
 
 
   const filterCurrentAccountMoves = useCallback(async () => {
-    let moves = await getMoves();
-    appState.currentAccountMoves = moves.filter(move => move.status !== 'unplayed' && move.ownerAccountHash == accountHash || move.adversaryAccountHash == accountHash);
-  }, [getMoves]);
+    if (currentAccountMoves) {
+
+      let moves = await getMoves();
+      appState.currentAccountMoves = moves.filter(move => move.status !== 'unplayed' && move.ownerAccountHash == accountHash || move.adversaryAccountHash == accountHash);
+    }
+    }, [getMoves]);
 
   const filterUnplayedMoves = useCallback(async () => {
-    let moves = await getMoves();
-    appState.unplayedMoves = moves.filter(move => move.status == 'unplayed')
+    if (unplayedMoves) {
+
+      let moves = await getMoves();
+      appState.unplayedMoves = moves.filter(move => move.status == 'unplayed')
+    }
   }, [getMoves]);
 
   const filterMoveForId = async (id) => {
