@@ -28,7 +28,6 @@ export const appState = proxy({
   lastDeployHash: '',
   executionResults: { status: '', message: '', method: '', loading: true },
   movePlayed: { id: '', winner: '', blendWinner: '', message: '' },
-  casperSignerInstalled: true,
 });
 
 
@@ -40,14 +39,6 @@ function App() {
 
   const { themeMode, isLogged, activePublicKey, nodeUrl, movesSeedUref, accountHash, lastDeployHash, casperSignerInstalled } = useSnapshot(appState);
   const clientRpc = new CasperServiceByJsonRPC(nodeUrl);
-
-
-  useEffect(() => {
-    if (!window.casperlabsHelper) {
-      appState.casperSignerInstalled = false;
-    }
-  }, [])
-
 
   useEffect(() => {
     const env = localStorage.getItem('env') || 'testnet'
@@ -223,7 +214,7 @@ function App() {
                 (
                   <Box align='center' pad={{ top: 'xlarge' }} margin={{ top: 'xlarge' }}>
                     <Spinner animation={{ type: 'rotateRight', duration: 4000 }} size='xlarge'>
-                      <Image src='/loading.png' />
+                      <Image src='gawibawibo-casper/loading.png' />
                     </Spinner>
                   </Box>
                 )
@@ -239,7 +230,7 @@ function App() {
                       clientRpc
                     }}>
                       <Nav />
-                      {
+                      {/* {
                         !casperSignerInstalled &&
                         <Card
                           align='center'
@@ -258,7 +249,7 @@ function App() {
                             label={'Casper Signer Extension'}
                           />
                         </Card>
-                      }
+                      } */}
                       <Main />
                     </CasperContext.Provider>
                     <FooterApp />
