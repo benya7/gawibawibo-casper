@@ -23,13 +23,13 @@ This led me to develop this idea to present it in this hackathon..
 
 ## What it does
 
-The game allows you to create a new move, choose a combination of three options and set your desired prize.
-You can also take an existing move, sending your combination and the prize deposit chosen by the owner of the move.
+The game allows you to create a new move, choose a combination of three options.
+You can also take an existing move, sending your combination.
 
 When an opponent takes an existing move, the Play function is called, and it compares each option by hand.
 The best of 3 hands wins and takes all the deposits in the move.
 
-If the move is tied, it is canceled and the funds are refunded.
+If the move is tied, it is canceled.
 You can also view your move history and cancel an unplayed move.
 
 ## How we built it
@@ -62,7 +62,7 @@ Beyond that, as it is written now it is impossible to compromise by cheating or 
 
 - Have finished the minimum viable product for delivery.
 - Being able to implement a solution to a game that I hadn't thought of before, within the limits of time.
-- Have implemented a traditional game to the code and the NEAR block chain, in a simple and fun way!
+- Have implemented a traditional game to the code and the CASPER block chain, in a simple and fun way!
 - Grateful to God for the inspiration and intelligence to be able to face this challenge.
 
 ## What we learned
